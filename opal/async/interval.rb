@@ -6,7 +6,7 @@ class Interval
   end
  
   def stop
-    `clearInterval(#{@interval.to_n})`
+    `clearInterval(#{@interval})`
     @stopped = true
   end
 
