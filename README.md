@@ -56,7 +56,7 @@ With no options provided, a task will be run immediately once the event loop com
 Example: 
 
 ```
-Task.new do
+Async::Task.new do
   puts "hello world"
 end
 
@@ -66,7 +66,7 @@ end
 By default, a task will only run once.  To make a task repeat, set the option times to however many times you want the task to repeat.  You can also have access to countup and countdown variables.
 
 ```
-Task.new do times: 5 do |countup, countdown|
+Async::Task.new do times: 5 do |countup, countdown|
   puts countdown
 end
 
@@ -80,7 +80,7 @@ end
 To make a task repeat infinitely, set times to ```:infinite```, or repeat to ```true```.  A countup will be provided but no countdown.  You can also use ```:i``` for short.
 
 ```
-Task.new times: :infinite do
+Async::Task.new times: :infinite do
   puts "forever"
 end
 
@@ -94,7 +94,7 @@ end
 The step option will determine how much you want your task to "step".
 
 ```
-Task.new times: 10, step: 2 do |countup, countdown|
+Async::Task.new times: 10, step: 2 do |countup, countdown|
   puts countup
 end
 
@@ -108,7 +108,7 @@ end
 To set a delay time on your task, specify the delay option with the number of milliseconds you want the duration of the delay to be.  This can also be done when you have set your task to repeat.
 
 ```
-Task.new delay: 1000 do
+Async::Task.new delay: 1000 do
   puts "this took 1 second"
 end 
 ```
@@ -116,7 +116,7 @@ end
 The delay and steps of a task can be modified within the execution of the task.  The following example will start out slow and increase in speed:
 
 ```
-task = Task.new times: 5, delay: 5000 do |countup, countdown|
+task = Async::Task.new times: 5, delay: 5000 do |countup, countdown|
   puts countdown
   task.delay = task.delay - 1000
 end
