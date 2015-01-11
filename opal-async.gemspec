@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Opal::Async::VERSION
   gem.authors       = ['Ravenstine']
   gem.email         = ['benjamin@pixelstreetinc.com']
-  gem.description   = "Provides a Ruby interface to browser APIs such as setInterval and setTimeout, as well as a non-blocking enumerator."
-  gem.summary       = "Wrappers to aid in writing non-blocking code in Ruby using Opal."
-  gem.homepage      = 'http://opalrb.org'
+  gem.description   = "Provides non-blocking tasks and enumerators for Opal."
+  gem.summary       = "Provides non-blocking tasks and enumerators for Opal."
+  gem.homepage      = 'http://github.com/ravenstine/opal-async'
   gem.rdoc_options << '--main' << 'README' <<
                       '--line-numbers' <<
                       '--include' << 'opal'
