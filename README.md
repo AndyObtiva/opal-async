@@ -122,6 +122,27 @@ task = Async::Task.new times: 5, delay: 5000 do |countup, countdown|
 end
 ```
 
+Tasks also have callbacks that can be performed on certain events.
+
+Here is an example of how to execute code after a repeating task has finished:
+
+```
+task = Async::Task.new times: 3, delay: 1000 do |countup, countdown|
+  puts countdown
+end
+
+task.on_finish {puts "BOOM"}
+
+#=> 3
+#=> 2
+#=> 1
+#=> BOOM
+```
+
+Other callbacks include ```on_start``` and ```on_stop```.
+
+
+#### Other Timers
 
 You can also timeouts and intervals specifically:
 

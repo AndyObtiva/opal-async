@@ -3,12 +3,16 @@ class Task
   def initialize options={}, &block
     @options = options
     @block = block
-    @countdown = options[:times] || 1
+    generate_settings
+    start
+  end
+
+  def generate_settings
+    @countdown = @options[:times] || 1
     @countup = 0
     @step = @options[:step] || 1
     @delay = @options[:delay] || 0
-    @times = options[:times]
-
+    @times = @options[:times]
     @proc = Proc.new do
       if @times
         if @times.is_a?(Fixnum)
@@ -18,6 +22,7 @@ class Task
             start unless @stopped
           else
             stop
+            @after_finish.call(@enumerable) if @after_finish
           end
         elsif [:infinite, :unlimited, :indefinite, :i].include?(@times) || @options[:repeat]
           @block.call(@countup, nil)
@@ -29,8 +34,18 @@ class Task
         @stopped = true
       end
     end
+  end
 
-    start
+  def on_stop &block
+    @after_stop = block
+  end
+
+  def on_start &block
+    @before_start = block
+  end
+
+  def on_finish &block
+    @after_finish = block
   end
 
   def stopped?
@@ -39,15 +54,18 @@ class Task
 
   def stop
     @stopper.call if @stopper
+    @after_stop.call(@enumerable) if @after_stop
     @stopped = true
   end
 
   def restart
     stop
+    generate_settings
     start
   end
 
   def start
+    @before_start.call(@enumerable) if @before_start
     if @delay && @delay > 0
       set_timeout
     else

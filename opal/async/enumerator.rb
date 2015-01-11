@@ -100,6 +100,40 @@ class Enumerator
     queue proc
     self
   end
+  def select step=1, &block
+    proc = Proc.new do
+      set_defaults
+      @step = step
+      Task.new step: @step, times: @length do |ind, cdown|
+        Task.new do
+          operation = yield(@enumerable[ind], ind)
+          @output << @enumerable[ind] if operation == true 
+          if cdown <= 1
+            finish_job 
+          end
+        end
+      end
+    end
+    queue proc
+    self
+  end
+  def reject step=1, &block
+    proc = Proc.new do
+      set_defaults
+      @step = step
+      Task.new step: @step, times: @length do |ind, cdown|
+        Task.new do
+          operation = yield(@enumerable[ind], ind)
+          @output << @enumerable[ind] unless operation == true 
+          if cdown <= 1
+            finish_job 
+          end
+        end
+      end
+    end
+    queue proc
+    self
+  end
   def done &block
     complete Proc.new {yield(@output, self)}
   end
