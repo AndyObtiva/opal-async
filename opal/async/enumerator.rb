@@ -1,3 +1,4 @@
+require 'native'
 class Enumerator
   def initialize enumerable, options={}
     @options = options
@@ -42,9 +43,9 @@ class Enumerator
   def set_defaults
     case @options[:array_type]
     when :u_int_8_clamped
-      @output = `new Uint8ClampedArray(#{@enumerable.length})`
+      @output = Native(`new Uint8ClampedArray(#{@enumerable.length})`)
     when :u_int_8
-      @output = `new Uint8Array()`
+      @output = Native(`new Uint8Array()`)
     else
       @output = []
     end
