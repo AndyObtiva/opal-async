@@ -21,9 +21,9 @@ Then require 'opal-async' in both your Opal code and your Opal compilation envir
 
 #### Enumerator
 
-The enumerator provides iteration methods for any enumerable object.  These methods are 'non-blocking', so other operations in the event loop can continue to be executed in between iterations.  Beware, this is not faster than a normal blocking iteration; it is trading off performance for not blocking other operations you may want to have continue such as UI updates & camera frame capture.  Very large arrays will take a long time to finish while the overhead may not be noticeable for smaller arrays.  It is best to do some tests and assess whether the trade-off is balanced enough for your needs.
+The enumerator provides iteration methods for any enumerable object.  These methods are 'non-blocking' but can still be chained.    
 
-Methods can be chained and when the enumerator is finished, a promise is executed using #done.
+When the enumerator is finished, a promise is executed using #done.
 
 For example:
 
@@ -47,13 +47,11 @@ enumerator.map{|x| x + 2}.each_slice(3).each{|x| puts x}
 - each
 - map
 - each_slice
-- select
-- reject
 
 #### Task
 A task contains code that will be added to the call stack of the event loop.  The Enumerator uses tasks to run small chunks of code without blocking the event loop.  A task can do the same things that a Timeout or an Interval can do but with some added features and optimizations.
 
-With no options provided, a task will be run immediately once the event loop comes back to it(if the environment supports this).  If the environment does not support immediates, it will attempt to polyfill an immediate before falling back on a 0ms timeout.
+With no options provided, a task will be run immediately once the event loop comes back to it(if the environment supports this).  If the environment does not support immediates, it will attempt to polyfill an immediate before settling with a 0ms timeout.
 
 Example: 
 
