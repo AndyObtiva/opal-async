@@ -41,14 +41,7 @@ class Enumerator
   end
 
   def set_defaults
-    case @options[:array_type]
-    when :u_int_8_clamped
-      @output = Native(`new Uint8ClampedArray(#{@enumerable.length})`)
-    when :u_int_8
-      @output = Native(`new Uint8Array()`)
-    else
-      @output = []
-    end
+    @output = []
     @finished = false
     @length = @enumerable.length
   end
