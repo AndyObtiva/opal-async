@@ -1,5 +1,7 @@
+require 'native'
 class Enumerator
-  def initialize enumerable
+  def initialize enumerable, options={}
+    @options = options
     @enumerable = enumerable
     @jobs = []
     @jobs_finished = 0
@@ -39,7 +41,14 @@ class Enumerator
   end
 
   def set_defaults
-    @output = []
+    case @options[:array_type]
+    when :u_int_8_clamped
+      @output = Native(`new Uint8ClampedArray(#{@enumerable.length})`)
+    when :u_int_8
+      @output = Native(`new Uint8Array()`)
+    else
+      @output = []
+    end
     @finished = false
     @length = @enumerable.length
   end
@@ -90,7 +99,7 @@ class Enumerator
       @step = step
       Task.new step: @step, times: @length do |ind, cdown|
         Task.new do
-          @output << yield(@enumerable[ind], ind)
+          @output[ind] = yield(@enumerable[ind], ind)
           if cdown <= 1
             finish_job 
           end
