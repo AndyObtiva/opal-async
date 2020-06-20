@@ -160,3 +160,8 @@ Interval.new 3000 do
   puts "I'm going to do this every 3 seconds."
 end
 ```
+
+## Contributors
+
+- [Benjamin Titcomb](https://github.com/Ravenstine) (Creator and Main Contributor)
+- [Andy Maleh](https://github.com/AndyObtiva) (Gemifier)
