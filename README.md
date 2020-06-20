@@ -1,4 +1,5 @@
 # Opal: Async
+[![Gem Version](https://badge.fury.io/rb/opal-async.svg)](https://badge.fury.io/rb/opal-async)
 
 ## Installation
 
