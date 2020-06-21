@@ -1,10 +1,11 @@
 # Opal: Async
+[![Gem Version](https://badge.fury.io/rb/opal-async.svg)](https://badge.fury.io/rb/opal-async)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'opal-async', github: "ravenstine/opal-async
+    gem 'opal-async', '~> 1.1.0'
 
 And then execute:
 
@@ -160,3 +161,8 @@ Interval.new 3000 do
   puts "I'm going to do this every 3 seconds."
 end
 ```
+
+## Contributors
+
+- [Benjamin Titcomb](https://github.com/Ravenstine) (Creator and Main Contributor)
+- [Andy Maleh](https://github.com/AndyObtiva) (Gemifier)
