@@ -165,4 +165,4 @@ end
 ## Contributors
 
 - [Benjamin Titcomb](https://github.com/Ravenstine) (Creator and Main Contributor)
-- [Andy Maleh](https://github.com/AndyObtiva) (Gemifier)
+- [Andy Maleh](https://github.com/AndyObtiva) (Gemifier and Maintainer)
