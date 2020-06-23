@@ -147,7 +147,7 @@ Other callbacks include ```on_start``` and ```on_stop```.
 
 #### Other Timers
 
-You can also timeouts and intervals specifically:
+You can also set timeouts and intervals, specifically:
 
 
 ```
