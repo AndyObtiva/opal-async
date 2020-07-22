@@ -151,13 +151,13 @@ You can also set timeouts and intervals, specifically:
 
 
 ```
-Timeout.new 3000 do
+Async::Timeout.new 3000 do
   puts "I just waited 3 seconds."
 end
 ```
 
 ```
-Interval.new 3000 do
+Async::Interval.new 3000 do
   puts "I'm going to do this every 3 seconds."
 end
 ```
