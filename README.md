@@ -15,12 +15,11 @@ Or install it yourself as:
 
     $ gem install opal-async
 
-Then require 'opal-async' in both your Opal code and your Opal compilation environment.
-
+Then require 'opal-async' in both your [Opal](https://opalrb.com/) code and your Opal compilation environment.
 
 ## Usage
 
-#### Enumerator
+### Enumerator
 
 The enumerator provides iteration methods for any enumerable object.  These methods are 'non-blocking', so other operations in the event loop can continue to be executed in between iterations.  Beware, this is not faster than a normal blocking iteration; it is trading off performance for not blocking other operations you may want to have continue such as UI updates & camera frame capture.  Very large arrays will take a long time to finish while the overhead may not be noticeable for smaller arrays.  It is best to do some tests and assess whether the trade-off is balanced enough for your needs.
 
@@ -44,21 +43,21 @@ enumerator.map{|x| x + 2}.each_slice(3).each{|x| puts x}
 #=> [9,10,11]
 ```
 
-##### Available enumerator methods:
+#### Available enumerator methods:
 - each
 - map
 - each_slice
 - select
 - reject
 
-#### Task
+### Task
 A task contains code that will be added to the call stack of the event loop.  The Enumerator uses tasks to run small chunks of code without blocking the event loop.  A task can do the same things that a Timeout or an Interval can do but with some added features and optimizations.
 
 With no options provided, a task will be run immediately once the event loop comes back to it(if the environment supports this).  If the environment does not support immediates, it will attempt to polyfill an immediate before falling back on a 0ms timeout.
 
 Example: 
 
-```
+```ruby
 Async::Task.new do
   puts "hello world"
 end
@@ -68,7 +67,7 @@ end
 
 By default, a task will only run once.  To make a task repeat, set the option times to however many times you want the task to repeat.  You can also have access to countup and countdown variables.
 
-```
+```ruby
 Async::Task.new do times: 5 do |countup, countdown|
   puts countdown
 end
@@ -82,7 +81,7 @@ end
 
 To make a task repeat infinitely, set times to ```:infinite```, or repeat to ```true```.  A countup will be provided but no countdown.  You can also use ```:i``` for short.
 
-```
+```ruby
 Async::Task.new times: :infinite do
   puts "forever"
 end
@@ -96,7 +95,7 @@ end
 
 The step option will determine how much you want your task to "step".
 
-```
+```ruby
 Async::Task.new times: 10, step: 2 do |countup, countdown|
   puts countup
 end
@@ -110,7 +109,7 @@ end
 
 To set a delay time on your task, specify the delay option with the number of milliseconds you want the duration of the delay to be.  This can also be done when you have set your task to repeat.
 
-```
+```ruby
 Async::Task.new delay: 1000 do
   puts "this took 1 second"
 end 
@@ -118,7 +117,7 @@ end
 
 The delay and steps of a task can be modified within the execution of the task.  The following example will start out slow and increase in speed:
 
-```
+```ruby
 task = Async::Task.new times: 5, delay: 5000 do |countup, countdown|
   puts countdown
   task.delay = task.delay - 1000
@@ -129,7 +128,7 @@ Tasks also have callbacks that can be performed on certain events.
 
 Here is an example of how to execute code after a repeating task has finished:
 
-```
+```ruby
 task = Async::Task.new times: 3, delay: 1000 do |countup, countdown|
   puts countdown
 end
@@ -145,20 +144,32 @@ task.on_finish {puts "BOOM"}
 Other callbacks include ```on_start``` and ```on_stop```.
 
 
-#### Other Timers
+### Other Timers
 
 You can also set timeouts and intervals, specifically:
 
 
-```
+```ruby
 Async::Timeout.new 3000 do
   puts "I just waited 3 seconds."
 end
 ```
 
-```
+```ruby
 Async::Interval.new 3000 do
   puts "I'm going to do this every 3 seconds."
+end
+```
+
+### Thread
+
+You may use the `Async::Task` class as a `Thread` class in Ruby to perform asynchronous work with an extra `require` statement.
+
+```ruby
+require 'async/ext/thread'
+
+Thread.new do
+  puts "hello world"
 end
 ```
 
