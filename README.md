@@ -5,7 +5,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'opal-async', '~> 1.1.0'
+    gem 'opal-async', '~> 1.1.1'
 
 And then execute:
 
@@ -163,7 +163,7 @@ end
 
 ### Thread
 
-You may use the `Async::Task` class as a `Thread` class in Ruby to perform asynchronous work with an extra `require` statement.
+You may use the `Async::Task` class as a `Thread` class in Opal to perform asynchronous work with an extra `require` statement.
 
 ```ruby
 require 'async/ext/thread'
@@ -177,6 +177,10 @@ end
 
 opal-async is currently used in the following projects:
 - [Glimmer DSL for Opal](https://github.com/AndyObtiva/glimmer-dsl-opal)
+
+## Change Log
+
+[CHANGELOG.md](CHANGELOG.md)
 
 ## Contributors
 
