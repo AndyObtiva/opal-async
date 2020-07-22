@@ -162,6 +162,11 @@ Interval.new 3000 do
 end
 ```
 
+## In The Wild
+
+opal-async is currently used in the following projects:
+- [Glimmer DSL for Opal](https://github.com/AndyObtiva/glimmer-dsl-opal)
+
 ## Contributors
 
 - [Benjamin Titcomb](https://github.com/Ravenstine) (Creator and Main Contributor)
