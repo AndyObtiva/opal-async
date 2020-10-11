@@ -1,5 +1,23 @@
 module Async
   class Task
+    class << self
+      # returns general status of whether a task is running. 
+      # Useful to code running in the task block to determine if it is running 
+      # as part of a task or not and take special actions accordingly.
+      def started?
+        @@started = false unless defined? :@@started
+        @@started
+      end
+      
+      def start
+        @@started = true
+      end
+      
+      def stop
+        @@started = false
+      end
+    end
+  
     attr_accessor :delay, :times
     def initialize options={}, &block
       @options = options
@@ -15,6 +33,7 @@ module Async
       @delay = @options[:delay] || 0
       @times = @options[:times]
       @proc = Proc.new do
+        self.class.start
         if @times
           if @times.is_a?(Fixnum)
             @block.call(@countup, @countdown)
@@ -34,6 +53,7 @@ module Async
           @block.call
           @stopped = true
         end
+        self.class.stop
       end
     end
   

@@ -5,7 +5,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'opal-async', '~> 1.1.1'
+    gem 'opal-async', '~> 1.2.0'
 
 And then execute:
 
@@ -161,21 +161,51 @@ Async::Interval.new 3000 do
 end
 ```
 
-### Thread
+### Ruby Extensions
+
+[opal-async](https://rubygems.org/gems/opal-async) ships with some Opal Ruby extensions that enhance Ruby classes with asynchronous capabilities.
+
+You may activate all the Ruby extensions via this require statement:
+
+```ruby
+require 'async/ext'
+```
+
+#### Thread
 
 You may use the `Async::Task` class as a `Thread` class in Opal to perform asynchronous work with an extra `require` statement.
 
 ```ruby
-require 'async/ext/thread'
+require 'async/ext/thread' # not needed if you called `require 'async/ext'`
 
 Thread.new do
   puts "hello world"
 end
 ```
 
+#### Array
+
+`Array#cycle` has been amended to work asynchronously via `Async::Task` when triggered inside another `Async::Task` (auto-detects it)
+
+This makes it not block the web browser event loop, thus allowing other tasks to update the DOM unhindered while `Array#cycle` is running.
+
+```ruby
+require 'async/ext/array' # not needed if you called `require 'async/ext'`
+
+Async::Task.new do
+  [1,2,3,4].cycle do |n| 
+    puts n
+    Async::Task.new do
+      # make a DOM update
+    end
+    sleep(1) # this does not block the event loop since it is transparently happening inside an Async::Task
+  end
+end
+```
+
 ## In The Wild
 
-opal-async is currently used in the following projects:
+opal-async is currently used in:
 - [Glimmer DSL for Opal](https://github.com/AndyObtiva/glimmer-dsl-opal)
 
 ## Change Log
