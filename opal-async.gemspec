@@ -28,6 +28,8 @@ Gem::Specification.new do |s|
     "opal/async.rb",
     "opal/async/countdown.rb",
     "opal/async/enumerator.rb",
+    "opal/async/ext.rb",
+    "opal/async/ext/array.rb",
     "opal/async/ext/thread.rb",
     "opal/async/interval.rb",
     "opal/async/task.rb",
