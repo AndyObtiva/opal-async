@@ -5,7 +5,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'opal-async', '~> 1.2.0'
+    gem 'opal-async', '~> 1.3.0'
 
 And then execute:
 
@@ -55,7 +55,7 @@ A task contains code that will be added to the call stack of the event loop.  Th
 
 With no options provided, a task will be run immediately once the event loop comes back to it(if the environment supports this).  If the environment does not support immediates, it will attempt to polyfill an immediate before falling back on a 0ms timeout.
 
-Example: 
+Example:
 
 ```ruby
 Async::Task.new do
@@ -77,7 +77,7 @@ end
 #=> 3
 #=> 2
 #=> 1
-``` 
+```
 
 To make a task repeat infinitely, set times to ```:infinite```, or repeat to ```true```.  A countup will be provided but no countdown.  You can also use ```:i``` for short.
 
@@ -112,7 +112,7 @@ To set a delay time on your task, specify the delay option with the number of mi
 ```ruby
 Async::Task.new delay: 1000 do
   puts "this took 1 second"
-end 
+end
 ```
 
 The delay and steps of a task can be modified within the execution of the task.  The following example will start out slow and increase in speed:
@@ -185,15 +185,19 @@ end
 
 #### Array
 
-`Array#cycle` has been amended to work asynchronously via `Async::Task` when triggered inside another `Async::Task` (auto-detects it)
+The follow `Array` methods have been amended to work asynchronously via `Async::Task` when triggered inside another `Async::Task` (auto-detects it):
+- `Array#cycle`
+- `Array#each`
 
-This makes it not block the web browser event loop, thus allowing other tasks to update the DOM unhindered while `Array#cycle` is running.
+This makes them not block the web browser event loop, thus allowing other tasks to update the DOM unhindered while running.
+
+Example:
 
 ```ruby
 require 'async/ext/array' # not needed if you called `require 'async/ext'`
 
 Async::Task.new do
-  [1,2,3,4].cycle do |n| 
+  [1,2,3,4].cycle do |n|
     puts n
     Async::Task.new do
       # make a DOM update

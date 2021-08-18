@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.3.0
+
+- Asynchronous `Array#each` method that is web browser event loop friendly
+- `Thread#kill` and `Thread#stop` for partial-compatibility with Ruby `Thread`
+
 ## 1.2.0
 
 - Asynchronous `Array#cycle` method that is web browser event loop friendly

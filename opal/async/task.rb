@@ -1,8 +1,8 @@
 module Async
   class Task
     class << self
-      # returns general status of whether a task is running. 
-      # Useful to code running in the task block to determine if it is running 
+      # returns general status of whether a task is running.
+      # Useful to code running in the task block to determine if it is running
       # as part of a task or not and take special actions accordingly.
       def started?
         @@started = false unless defined? :@@started
@@ -130,9 +130,9 @@ module Async
           };
           var mc = new MessageChannel();
   
-          mc.port1.onmessage = function(){ 
+          mc.port1.onmessage = function(){
             if (!#{stopped?}){
-              task.apply(task) 
+              task.apply(task)
             }
           };
           mc.port2.postMessage(null);
