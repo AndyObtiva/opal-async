@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.4.0
+
+- Drop `Array#cycle` and `Array#each` overrides and re-implement as `Array#async_cycle` and `Array#async_each`
+- Asynchronous `Kernel#async_loop` alternative to `Kernel#loop`
+
 ## 1.3.0
 
 - Asynchronous `Array#each` method that is web browser event loop friendly

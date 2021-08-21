@@ -185,9 +185,9 @@ end
 
 #### Array
 
-The follow `Array` methods have been amended to work asynchronously via `Async::Task` when triggered inside another `Async::Task` (auto-detects it):
-- `Array#cycle`
-- `Array#each`
+The follow `Array` methods have been added to work asynchronously via `Async::Task`:
+- `Array#async_cycle`
+- `Array#async_each`
 
 This makes them not block the web browser event loop, thus allowing other tasks to update the DOM unhindered while running.
 
@@ -197,12 +197,34 @@ Example:
 require 'async/ext/array' # not needed if you called `require 'async/ext'`
 
 Async::Task.new do
-  [1,2,3,4].cycle do |n|
+  [1,2,3,4].async_cycle do |n|
     puts n
     Async::Task.new do
-      # make a DOM update
+      # make a DOM update that is not blocked
     end
-    sleep(1) # this does not block the event loop since it is transparently happening inside an Async::Task
+    sleep(1)
+  end
+end
+```
+
+#### Kernel
+
+The follow `Kernel` method has been added to work asynchronously via `Async::Task`:
+- `Array#async_loop`
+
+This makes it not block the web browser event loop, thus allowing other tasks to update the DOM unhindered while running.
+
+Example:
+
+```ruby
+require 'async/ext/kernel' # not needed if you called `require 'async/ext'`
+
+Async::Task.new do
+  async_loop do
+    Async::Task.new do
+      # make a DOM update that is not blocked
+    end
+    sleep(1)
   end
 end
 ```
