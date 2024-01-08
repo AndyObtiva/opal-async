@@ -1,3 +1,5 @@
+# backtick_javascript: true
+
 module Async
   class Countdown
     def initialize time=0, intervals=1, step=1, &block

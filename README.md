@@ -1,11 +1,11 @@
-# Opal: Async
+# Opal: Async 1.4.1
 [![Gem Version](https://badge.fury.io/rb/opal-async.svg)](https://badge.fury.io/rb/opal-async)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'opal-async', '~> 1.3.0'
+    gem 'opal-async', '~> 1.4.1'
 
 And then execute:
 
@@ -232,7 +232,8 @@ end
 ## In The Wild
 
 opal-async is currently used in:
-- [Glimmer DSL for Opal](https://github.com/AndyObtiva/glimmer-dsl-opal)
+- [Glimmer DSL for Web](https://github.com/AndyObtiva/glimmer-dsl-web) (Ruby in the Browser Web GUI Frontend Library)
+- [Glimmer DSL for Opal](https://github.com/AndyObtiva/glimmer-dsl-opal) (Pure-Ruby Web GUI and Auto-Webifier of Desktop Apps)
 
 ## Change Log
 

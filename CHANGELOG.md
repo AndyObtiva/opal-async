@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.1
+
+- Add `# backtick_javascript: true` where needed to satisfy new Opal requirement
+
 ## 1.4.0
 
 - Drop `Array#cycle` and `Array#each` overrides and re-implement as `Array#async_cycle` and `Array#async_each`

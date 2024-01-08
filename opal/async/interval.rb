@@ -1,3 +1,5 @@
+# backtick_javascript: true
+
 module Async
   class Interval
     def initialize time=0, &block
